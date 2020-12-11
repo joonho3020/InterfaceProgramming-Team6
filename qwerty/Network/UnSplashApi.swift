@@ -12,11 +12,9 @@ import Combine
 class UnSplashApi : ObservableObject{
     
     @Published var photos : [Photo] = []
+    @Published var photoGrid: [PhotoRow] = []
     @Published var searchText: String = "Cat"
-    @Published var loading: Bool = false
-    @Published var curPage: Int = 1
-    @Published var totalPages: Int = 0
-    @Published var totalPhotos: Int = 0
+    @Published var pageInfo: PageInfo = PageInfo()
     var searchViewState: SearchViewState
     private var disposables = Set<AnyCancellable>()
 
@@ -53,7 +51,7 @@ class UnSplashApi : ObservableObject{
     }
     
     func loadData(searchText: String){
-        self.curPage = 1
+        
         self.searchText = searchText
         let searchUrl = getUrl(searchText: searchText)
         
@@ -65,15 +63,14 @@ class UnSplashApi : ObservableObject{
             return
         }
         let request = URLRequest(url:url)
-        self.loading = true
         URLSession.shared.dataTask(with: request){data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data){
                     DispatchQueue.main.async {
                         self.photos = decodedResponse.results
-                        self.totalPages = decodedResponse.total_pages
-                        self.totalPhotos = decodedResponse.total
-                        self.loading = false
+                        self.buildPhotoRows()
+                        self.pageInfo.photoCnt = decodedResponse.total
+                        self.pageInfo.pageCnt = decodedResponse.total_pages
                     }
                     return
                 }
@@ -83,7 +80,7 @@ class UnSplashApi : ObservableObject{
     }
     
     func loadMore(){
-        let searchUrl = getUrl(searchText: self.searchText, page: self.curPage+1)
+        let searchUrl = getUrl(searchText: self.searchText, page: self.pageInfo.curPage+1)
         guard let url = URL(string: searchUrl) else {
             print("Invalid URL")
             return
@@ -94,6 +91,10 @@ class UnSplashApi : ObservableObject{
                 if let decodedResponse = try? JSONDecoder().decode(Response.self, from: data){
                     DispatchQueue.main.async {
                         self.photos.append(contentsOf: decodedResponse.results)
+                        self.buildPhotoRows()
+                        //is this ok?????
+                        //to do : init curPage to 0 whenever the search keyword changes
+                        self.pageInfo.curPage += 1
                     }
                     return
                 }
@@ -107,6 +108,32 @@ class UnSplashApi : ObservableObject{
             return last == photo
         }
         return false
+    }
+    
+    func isLastPhotoRow(_ photoRow: PhotoRow) -> Bool {
+        if let last = self.photoGrid.last {
+           return last == photoRow
+        }
+        return false
+    }
+    
+    func lastElementCheck(id: String){
+        if(self.photoGrid.last?.id == id) {
+            loadMore()
+        }
+    }
+    
+    func buildPhotoRows() {
+        self.photoGrid = []
+        var i = 0;
+        for photo in self.photos {
+            if(i%3 == 0) {
+                self.photoGrid.append(PhotoRow(id: photo.id, row: [photo]))
+            } else {
+                self.photoGrid[self.photoGrid.count-1].row.append(photo)
+            }
+            i += 1
+        }
     }
 }
 

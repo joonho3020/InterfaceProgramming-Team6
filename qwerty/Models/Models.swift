@@ -34,3 +34,21 @@ struct Response: Codable, Equatable {
     let total_pages: Int
     let results: [Photo]
 }
+
+struct PhotoRow: Codable, Identifiable, Hashable {
+    var id: String
+    var row: [Photo]
+}
+
+
+struct PageInfo {
+    var curPage: Int = 1
+    var photoCnt: Int = 1
+    var pageCnt: Int = 1
+}
+
+//struct PhotoGrid: Codable {
+//    var total: Int
+//    var total_pages: Int
+//    var grid: [PhotoRow]
+//}
