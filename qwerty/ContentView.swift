@@ -8,19 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        VStack {
-            Text("Photoviewer")
-                .bold()
-                .font(.largeTitle)
-                .padding(.top, 30)
-                .padding(.trailing, 120)
-                .padding(.bottom, 10)
-            SearchView()
-            Spacer()
-            PhotoListView()
+        NavigationView{
+            VStack {
+                Text("Photoviewer")
+                    .bold()
+                    .font(.largeTitle)
+                    .padding(.top, 30)
+                    .padding(.trailing, 120)
+                    .padding(.bottom, 10)
+                SearchView()
+                Spacer()
+                PhotoListView()
+            }
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
