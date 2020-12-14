@@ -13,6 +13,12 @@ import SwiftUI
 import Combine
 import SDWebImageSwiftUI
 
+public var screenWidth: CGFloat {
+    return UIScreen.main.bounds.width
+}
+public var screenHeight: CGFloat {
+    return UIScreen.main.bounds.height
+}
 
 struct RawPhotoView: View {
     var photo: Photo
@@ -22,8 +28,7 @@ struct RawPhotoView: View {
             WebImage(url: URL(string: photo.urls.thumb))
                 .renderingMode(.original)
                 .resizable()
-                .frame(minWidth: 0, maxWidth: 90, minHeight: 0, maxHeight: 110, alignment: .center)
-                .scaledToFill()
+                .frame(width: screenWidth/2-18, height: 150)
         }
     }
 }
@@ -78,10 +83,10 @@ struct PhotoListView: View {
                     if photoRow.row.count > 2 {
                         PhotoView(photo: photoRow.row[0])
                         PhotoView(photo: photoRow.row[1])
-                        PhotoView(photo: photoRow.row[2])
+                        //PhotoView(photo: photoRow.row[2])
                     }
                 }.onAppear(perform: {self.unsplashapi.lastElementCheck(id:photoRow.id)}).listRowInsets(EdgeInsets(top:0, leading: 0, bottom: 0, trailing: 0)).frame(minHeight: 110)
-            }
+            }//.listStyle(SidebarListStyle())
         }
     }
     
