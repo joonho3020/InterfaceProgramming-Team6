@@ -42,6 +42,26 @@ struct RawLargePhotoView: View {
             .resizable()
             .scaleEffect(scale)
             .scaledToFill()
+            /*.contextMenu {
+                Button(action:  {
+                    
+                     SDWebImageDownloader().downloadImage(with: URL(string: )) { (image, _, _, _) in
+                     
+                     UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+                     }
+                     
+                     
+                    
+                }) {
+                    HStack {
+                        Text("Save")
+                        Spacer()
+                        Image(systemName: "square.and.arrow.down.fill")
+                    }
+                    .foregroundColor(.black)
+                }
+            } */
     }
+
 }
 
