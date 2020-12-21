@@ -23,6 +23,7 @@ struct PhotoListView: View {
                     }
                 }.onAppear(perform: {self.unsplashapi.lastElementCheck(id:photoRow.id)}).listRowInsets(EdgeInsets(top:0, leading: 0, bottom: 0, trailing: 0)).frame(minHeight: 110)
                 }
+
         }
     }
     
