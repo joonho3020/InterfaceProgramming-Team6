@@ -21,6 +21,7 @@ struct ContentView: View {
                 Spacer()
                 PhotoListView()
             }.navigationBarTitle(Text("Photo Viewer"))
+            .background(Image("flower2"), alignment: .leading)
         }
 
     }
