@@ -20,31 +20,21 @@ public var screenHeight: CGFloat {
 struct ThumbPhotoView: View {
     var photo: Photo
     var body: some View {
-        VStack {
-            RawThumbPhotoView(imageUrl: photo.urls.thumb)
-        }
+//        VStack {
+//            RawThumbPhotoView(imageUrl: photo.urls.thumb)
+//        }
+        RawThumbPhotoView(photo: photo)
     }
 }
 
 struct RawThumbPhotoView: View {
-    @ObservedObject var url: ImageLoader
-    var width: Float =  170
-    var height: Float = 110
-
-    init(imageUrl: String) {
-        url = ImageLoader(imageUrl: imageUrl)
-    }
-    
-    init(imageUrl: String, width: Float, height: Float){
-        url = ImageLoader(imageUrl: imageUrl)
-        self.width = width
-        self.height = height
-    }
+    @State var photo: Photo
     
     var body: some View {
-        Image(uiImage: UIImage(data: url.data) ?? UIImage())
+        AnimatedImage(url: URL(string: photo.urls.thumb))
             .renderingMode(.original)
             .resizable()
+            .padding(3)
             .frame(width: screenWidth/2-18, height: 150)
 
     }

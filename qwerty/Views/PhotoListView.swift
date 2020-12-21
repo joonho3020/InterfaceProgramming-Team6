@@ -14,15 +14,15 @@ struct PhotoListView: View {
     @EnvironmentObject var unsplashapi: UnSplashApi
     
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             List(unsplashapi.photoGrid) { photoRow in
-                HStack(alignment: .top) {
+                HStack(alignment:.top, spacing: 20) {
                     if photoRow.row.count > 2 {
                         PhotoView(photo: photoRow.row[0])
                         PhotoView(photo: photoRow.row[1])
                     }
                 }.onAppear(perform: {self.unsplashapi.lastElementCheck(id:photoRow.id)}).listRowInsets(EdgeInsets(top:0, leading: 0, bottom: 0, trailing: 0)).frame(minHeight: 110)
-            }
+                }
         }
     }
     
