@@ -42,7 +42,10 @@ struct RawLargePhotoView: View {
             .resizable()
             .scaleEffect(scale)
             .scaledToFill()
-            /*.contextMenu {
+           // for download - add URL in SDWebImageDownloader().downloadImage(with : URL(string: ))
+           // string example : Image.urls["small"]!
+        
+        /*.contextMenu {
                 Button(action:  {
                     
                      SDWebImageDownloader().downloadImage(with: URL(string: )) { (image, _, _, _) in
