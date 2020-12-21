@@ -127,7 +127,7 @@ class UnSplashApi : ObservableObject{
         self.photoGrid = []
         var i = 0;
         for photo in self.photos {
-            if(i%3 == 0) {
+            if(i%2 == 0) {
                 self.photoGrid.append(PhotoRow(id: photo.id, row: [photo]))
             } else {
                 self.photoGrid[self.photoGrid.count-1].row.append(photo)

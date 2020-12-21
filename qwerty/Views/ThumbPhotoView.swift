@@ -20,9 +20,6 @@ public var screenHeight: CGFloat {
 struct ThumbPhotoView: View {
     var photo: Photo
     var body: some View {
-//        VStack {
-//            RawThumbPhotoView(imageUrl: photo.urls.thumb)
-//        }
         RawThumbPhotoView(photo: photo)
     }
 }

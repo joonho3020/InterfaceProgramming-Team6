@@ -17,7 +17,7 @@ struct PhotoListView: View {
         VStack(spacing: 20) {
             List(unsplashapi.photoGrid) { photoRow in
                 HStack(alignment:.top, spacing: 20) {
-                    if photoRow.row.count > 2 {
+                    if photoRow.row.count > 1 {
                         PhotoView(photo: photoRow.row[0])
                         PhotoView(photo: photoRow.row[1])
                     }

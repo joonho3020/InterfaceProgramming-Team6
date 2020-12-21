@@ -12,16 +12,10 @@ struct ContentView: View {
     var body: some View {
         NavigationView{
             VStack {
-                Text("Photoviewer")
-                    .bold()
-                    .font(.largeTitle)
-                    .padding(.top, 30)
-                    .padding(.trailing, 120)
-                    .padding(.bottom, 10)
                 SearchView()
                 Spacer()
                 PhotoListView()
-            }
+            }.navigationBarTitle(Text("Photo Viewer"))
         }
     }
     
