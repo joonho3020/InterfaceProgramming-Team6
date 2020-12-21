@@ -21,7 +21,10 @@ struct PhotoListView: View {
                         PhotoView(photo: photoRow.row[0])
                         PhotoView(photo: photoRow.row[1])
                     }
-                }.onAppear(perform: {self.unsplashapi.lastElementCheck(id:photoRow.id)}).listRowInsets(EdgeInsets(top:0, leading: 0, bottom: 0, trailing: 0)).frame(minHeight: 110)
+                }
+                .onAppear(perform: {self.unsplashapi.lastElementCheck(id:photoRow.id)})
+                .listRowInsets(EdgeInsets(top:0, leading: 0, bottom: 0, trailing: 0)).frame(minHeight: 110)
+                
             }
         }
     }
